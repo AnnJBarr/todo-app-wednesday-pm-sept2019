@@ -18,14 +18,27 @@ class App extends Component {
   }
 
   render() {
+    const completedTasks = this.state.tasks.filter(task => {
+      return task.completed;
+    });
+
+    const incompleteTasks = this.state.tasks.filter (task => {
+      return task.completed ? false : true
+    });
     return (
       <div className="container">
         <Header />
         <AddItem />
         <ItemCount count={this.state.tasks.length} />
-        {this.state.tasks.map(task => {
+        <h3>Tasks left to complete</h3>
+        {incompleteTasks.map(task => {
           return <Item text={task.text} completed = {task.completed} key={task.id}/>
         })}
+
+        <h3>Tasks already completed</h3>
+        {completedTasks.map(task => {
+          return <Item text={task.text} completed = {task.completed} key={task.id}/>
+        })} 
       </div>
     );
   }
