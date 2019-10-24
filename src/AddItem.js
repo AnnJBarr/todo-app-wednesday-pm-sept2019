@@ -33,13 +33,13 @@ class AddItem extends React.Component {
             type="text"
             className="form-control"
             id="newItem"
-            placeholder="Type an item here" 
+            placeholder="Type an item here (max 160 characters)" 
             value={this.state.newItemText}
             onChange={this.updateNewItemText}
           ></input>
         </div>
         {/* this is a comment in JSX */}
-        <button className="btn btn-primary mb-2" onClick={this.handleClick} disabled={this.state.newItemText.length === 0}>
+        <button className="btn btn-primary mb-2" onClick={this.handleClick} disabled={this.state.newItemText.length === 0 || this.state.newItemText.length > 160}>
           Add to List
         </button>
       </form>

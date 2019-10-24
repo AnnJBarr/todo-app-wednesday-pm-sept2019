@@ -27,7 +27,6 @@ class App extends Component {
       date: new Date(),
       id: uuid()
     };
-    console.log(newTask.date);
 
     tasksCopy.push(newTask)
 
