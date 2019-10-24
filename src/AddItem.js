@@ -1,6 +1,29 @@
 import React from "react";
-
+//Controlled Component
 class AddItem extends React.Component {
+  state = {
+    newItemText: ""
+  }
+
+  //Functions which update state must always live where the state lives
+  updateNewItemText = (event) => {
+    //console.log(event.target.value)
+    // this function should update the state whenever someone types
+    this.setState({
+      newItemText: event.target.value
+    })
+  }
+
+  //Intermediary function
+
+  handleClick = (event) => {
+    event.preventDefault();
+    this.props.addNewTaskFunc(this.state.newItemText);
+    this.setState({
+      newItemText: ""
+    });
+  }
+
   render() {
     // JSX
     return (
@@ -10,11 +33,13 @@ class AddItem extends React.Component {
             type="text"
             className="form-control"
             id="newItem"
-            placeholder="Type an item here"
+            placeholder="Type an item here" 
+            value={this.state.newItemText}
+            onChange={this.updateNewItemText}
           ></input>
         </div>
         {/* this is a comment in JSX */}
-        <button type="submit" className="btn btn-primary mb-2">
+        <button className="btn btn-primary mb-2" onClick={this.handleClick} disabled={this.state.newItemText.length === 0}>
           Add to List
         </button>
       </form>
