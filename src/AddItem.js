@@ -7,7 +7,7 @@ class AddItem extends React.Component {
 
   //Functions which update state must always live where the state lives
   updateNewItemText = (event) => {
-    //console.log(event.target.value)
+    console.log(event.target.value)
     // this function should update the state whenever someone types
     this.setState({
       newItemText: event.target.value

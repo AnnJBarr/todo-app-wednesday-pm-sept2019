@@ -28,7 +28,17 @@ class App extends Component {
       id: uuid()
     };
 
-    tasksCopy.push(newTask)
+    tasksCopy.push(newTask);
+
+    this.setState({
+      tasks: tasksCopy
+    });
+  }
+
+  //this function should update completed to true
+  doneTask = () => {
+    const tasksCopy = this.state.tasks.slice();
+    tasksCopy.completed = true
 
     this.setState({
       tasks: tasksCopy
@@ -57,7 +67,7 @@ class App extends Component {
         <ItemCount count={this.state.tasks.length} />
         <h3>Tasks left to complete</h3>
         {dateSortedIncomplete.map(task => {
-          return <Item text={task.text} completed={task.completed} key={task.id}/>
+          return <Item doneTaskFunc={this.doneTask} text={task.text} completed={task.completed} key={task.id}/>
         })}
 
         <h3>Tasks already completed</h3>
