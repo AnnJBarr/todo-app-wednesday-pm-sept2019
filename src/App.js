@@ -52,13 +52,15 @@ class App extends Component {
 
     const dateSortedCompleted = completedTasks.sort((a, b) => b.date - a.date);
     console.log(dateSortedCompleted);
-
+    // Completed listed most recent first
 
     const incompleteTasks=this.state.tasks.filter (task => {
       return task.completed ? false : true
     });
 
-    const dateSortedIncomplete = incompleteTasks.sort((a, b) => b.date - a.date);
+
+    const dateSortedIncomplete = incompleteTasks.sort((a, b) => a.date - b.date);
+    //most recent to bottom of list
 
     return (
       <div className="container">
