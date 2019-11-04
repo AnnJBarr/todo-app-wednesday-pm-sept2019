@@ -1,5 +1,8 @@
 import React from "react";
 import "./Item.css";
+import moment from "moment"
+import { format } from 'date-fns'
+
 
 class Item extends React.Component {
 
@@ -12,26 +15,26 @@ class Item extends React.Component {
   //   })
   // }
 
-  // doneTask = () => {
-  //   const tasksCopy = this.state.tasks.slice();
-  //   tasksCopy.completed = true
+  doneTask = () => {
+    const tasksCopy = this.state.tasks.slice();
+    tasksCopy.completed = true
 
-  //   this.setState({
-  //     tasks: tasksCopy
-  //   });
-  // }
+    this.setState({
+      tasks: tasksCopy
+    });
+  }
 
-//  handleDoneClick = (event) => {
-//    console.log(event.value)
-//   const tasksCopy = this.state.tasks.slice();
-//   console.log(tasksCopy)
-//     tasksCopy.completed = true
+ handleDoneClick = event => {
+   console.log("the done button was clicked " + event)
+   this.props.doneTaskFunc(this.props.id)
+  
+ }
 
-//     this.setState({
-//       tasks: tasksCopy
-//     });
-//    console.log(this.state.tasks.completed)
-//  }
+
+ handleDelete =(e) =>{
+  console.log("the button was clicked" + e)
+  this.props.deleteTaskFunc(this.props.id);
+ }
 
   render() {
     
@@ -42,6 +45,15 @@ class Item extends React.Component {
             {this.props.text}
           </p>
         </div>
+        <div className="col-2">
+        {/* <p>{format(new Date(this.props.date), 'dd MMM yy')}</p> */}
+          <p>{moment(this.props.date).format("YYYY-MM-DD")}</p>
+        </div>
+        <div className="col-3">
+          <p className={moment(this.props.dueBy, "YYYY-MM-DD").fromNow().includes("ago") ? "overdue"  : ""}>
+          OverDue {moment(this.props.dueBy, "YYYY-MM-DD").fromNow()}
+          </p>
+        </div>
         <div className="col-1">
           {!this.props.completed && (
             <button className="btn btn-info" onClick={this.handleDoneClick} disabled={this.props.completed}>
@@ -50,7 +62,7 @@ class Item extends React.Component {
           )}
         </div>
         <div className="col-1">
-          <button className="btn btn-danger">Delete</button>
+          <button className="btn btn-danger" onClick={this.handleDelete}>Delete</button>
         </div>
       </div>
     );
