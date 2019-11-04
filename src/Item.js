@@ -47,6 +47,7 @@ class Item extends React.Component {
         </div>
         <div className="col-2">
         {/* <p>{format(new Date(this.props.date), 'dd MMM yy')}</p> */}
+
           <p>{moment(this.props.date).format("YYYY-MM-DD")}</p>
         </div>
         <div className="col-3">

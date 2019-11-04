@@ -37,6 +37,21 @@ class App extends Component {
     });
   }
 
+  convertDates = id =>{
+    console.log("convertDates called ")
+    const taskCopy=this.state.tasks.slice();
+    console.log(taskCopy)
+    const updateDates = this.state.tasks.map(task => { 
+      task.date = new Date(task.date);
+      task.dueBy = new Date(task.dueBy);
+      return task;
+      
+    })
+    this.setState({
+      tasks:taskCopy
+    })
+  }
+convertDates();
   //this function should update completed to true
   doneTask = id => {
     console.log("this is the id from doneTask "+ id);
@@ -76,7 +91,9 @@ class App extends Component {
   }
 
   render() {
+
     const completedTasks=this.state.tasks.filter(task => {
+      
       return task.completed;
     });
 
@@ -85,10 +102,17 @@ class App extends Component {
     // Completed listed most recent first
 
     const incompleteTasks=this.state.tasks.filter (task => {
+     
       return task.completed ? false : true
     });
 
 
+    // const datesMod = incompleteTasks.map(getDate)
+    // function getDate(object) {var date = new Date([object.date])
+    // return date }
+
+    // console.log(datesMod)
+    // console.log(incompleteTasks)
     const dateSortedIncomplete = incompleteTasks.sort((a, b) => a.date - b.date);
     console.log(dateSortedIncomplete)
 
@@ -98,18 +122,19 @@ class App extends Component {
     const count = incompleteTasks.filter(item => item.completed === false).length
     console.log("Count" + count)
     return (
-      <div className="container">
+      <div className="container" >
+
         <Header />
-        <AddItem addNewTaskFunc={this.addNewTask}/>
+        <AddItem addNewTaskFunc={this.addNewTask} />
         <ItemCount count={count} />
         <h3>Tasks left to complete</h3>
         {dateSortedIncomplete.map(task => {
-          return <Item doneTaskFunc={this.doneTask} text={task.text} completed={task.completed} key={task.id} deleteTaskFunc={this.deleteTask} id={task.id} date={task.date} dueBy={task.dueBy}/>
+          return <Item convertDatesFunc={this.convertDates} doneTaskFunc={this.doneTask} text={task.text} completed={task.completed} key={task.id} deleteTaskFunc={this.deleteTask} id={task.id} date={task.date} dueBy={task.dueBy}/>
         })}
 
         <h3>Tasks already completed</h3>
         {dateSortedCompleted.map(task => {
-          return <Item text={task.text} completed={task.completed} key={task.id} deleteTaskFunc={this.deleteTask} id={task.id}date={task.date} dueBy={task.dueBy}/>
+          return <Item convertDatesFunc={this.convertDates} text={task.text} completed={task.completed} key={task.id} deleteTaskFunc={this.deleteTask} id={task.id} date={task.date} dueBy={task.dueBy}/>
         })} 
       </div>
     );
