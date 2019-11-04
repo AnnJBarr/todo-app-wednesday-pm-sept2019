@@ -91,13 +91,17 @@ class App extends Component {
 
     const dateSortedIncomplete = incompleteTasks.sort((a, b) => a.date - b.date);
     console.log(dateSortedIncomplete)
+
+    
     //most recent to bottom of list
 
+    const count = incompleteTasks.filter(item => item.completed === false).length
+    console.log("Count" + count)
     return (
       <div className="container">
         <Header />
         <AddItem addNewTaskFunc={this.addNewTask}/>
-        <ItemCount count={this.state.tasks.length} />
+        <ItemCount count={count} />
         <h3>Tasks left to complete</h3>
         {dateSortedIncomplete.map(task => {
           return <Item doneTaskFunc={this.doneTask} text={task.text} completed={task.completed} key={task.id} deleteTaskFunc={this.deleteTask} id={task.id} date={task.date} dueBy={task.dueBy}/>
