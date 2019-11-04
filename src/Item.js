@@ -51,7 +51,7 @@ class Item extends React.Component {
         </div>
         <div className="col-3">
           <p className={moment(this.props.dueBy, "YYYY-MM-DD").fromNow().includes("ago") ? "overdue"  : ""}>
-          OverDue {moment(this.props.dueBy, "YYYY-MM-DD").fromNow()}
+          Due {moment(this.props.dueBy, "YYYY-MM-DD").fromNow()}
           </p>
         </div>
         <div className="col-1">
