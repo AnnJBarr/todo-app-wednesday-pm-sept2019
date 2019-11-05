@@ -40,18 +40,20 @@ class App extends Component {
   convertDates = id =>{
     console.log("convertDates called ")
     const taskCopy=this.state.tasks.slice();
-    console.log(taskCopy)
+    //console.log(taskCopy)
     const updateDates = this.state.tasks.map(task => { 
+      console.log(updateDates)
       task.date = new Date(task.date);
       task.dueBy = new Date(task.dueBy);
       return task;
       
     })
+    console.log("this should be taskCopy")
+    console.log(taskCopy)
     this.setState({
       tasks:taskCopy
     })
   }
-convertDates();
   //this function should update completed to true
   doneTask = id => {
     console.log("this is the id from doneTask "+ id);
@@ -62,6 +64,7 @@ convertDates();
 
     const updatedTasks = this.state.tasks.map(task => {
       if (task.id===id){ task.completed = true;
+        console.log(updatedTasks)
       }
       return task;
 
@@ -89,16 +92,24 @@ convertDates();
       tasks: remainingTasks
     })
   }
-
+  
   render() {
+    const dateObjTasks=this.convertDates(this.tasks);
 
-    const completedTasks=this.state.tasks.filter(task => {
+    console.log("next will be dateObjTasks")
+    console.log(dateObjTasks);
+
+    const completedTasks=dateObjTasks.filter(task => {
       
       return task.completed;
     });
+    console.log(completedTasks)
+    //const completedWithDateObj = this.convertDates(completedTasks);
+    console.log('completedTasks')
+    console.log(completedTasks)
 
     const dateSortedCompleted = completedTasks.sort((a, b) => b.date - a.date);
-    console.log(dateSortedCompleted);
+    //console.log(dateSortedCompleted);
     // Completed listed most recent first
 
     const incompleteTasks=this.state.tasks.filter (task => {
@@ -106,6 +117,8 @@ convertDates();
       return task.completed ? false : true
     });
 
+    //const incompleteWithDateObj = this.convertDates(incompleteTasks);
+    //console.log(incompleteWithDateObj)
 
     // const datesMod = incompleteTasks.map(getDate)
     // function getDate(object) {var date = new Date([object.date])
@@ -113,7 +126,7 @@ convertDates();
 
     // console.log(datesMod)
     // console.log(incompleteTasks)
-    const dateSortedIncomplete = incompleteTasks.sort((a, b) => a.date - b.date);
+    const dateSortedIncomplete = incompleteWithDateObj.sort((a, b) => a.date - b.date);
     console.log(dateSortedIncomplete)
 
     
