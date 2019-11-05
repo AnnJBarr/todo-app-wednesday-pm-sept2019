@@ -128,10 +128,10 @@ onChange(date) {
    //{this.handleDateChange}
 />
 </div>
-<div>
-<DatePicker onChange={this.handleDateChange} value={this.state.selectedDate} />
+{/* <div> */}
+{/* <DatePicker onChange={this.handleDateChange} value={this.state.selectedDate} /> */}
    {/* value={this.state.selectedDate}    */}
-</div>
+{/* </div> */}
 
 
 
